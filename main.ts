@@ -1,0 +1,18 @@
+// news-image-20261124 entry — Node 22, standard library only.
+//
+// The entry image is the entry.png beside this file: a one-image broadsheet
+// front page summing up the world news of Tuesday 24 November 2026. It was
+// rendered at build time from the front-page design in poster.html by
+// render_poster.py (see stories.md for the reporting behind each item).
+//
+// This program copies entry.png to the output directory byte for byte, so
+// two runs always produce identical output. Outside the grader's container,
+// MAKEFUN_OUTPUT_DIR stands in for /output:
+//   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+
+import { copyFileSync, mkdirSync } from 'node:fs';
+import { join } from 'node:path';
+
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+mkdirSync(outDir, { recursive: true });
+copyFileSync(new URL('./entry.png', import.meta.url), join(outDir, 'entry.png'));
